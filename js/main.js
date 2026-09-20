@@ -63,11 +63,18 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.classList.toggle('open');
     document.body.style.overflow = navLinks.classList.contains('open') ? 'hidden' : '';
   });
-  navLinks && navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    navToggle.classList.remove('open');
-    navLinks.classList.remove('open');
-    document.body.style.overflow = '';
-  }));
+  navLinks && navLinks.querySelectorAll('a').forEach(a => {
+    /* skip the "Home" dropdown trigger — on tap it opens the Classic/
+       Editorial submenu instead of navigating (see the .nav-item handler
+       above, which calls preventDefault() for it), so it must not also
+       close the whole slide-out panel and hide that submenu instantly */
+    if(a.parentElement && a.parentElement.classList.contains('nav-item')) return;
+    a.addEventListener('click', () => {
+      navToggle.classList.remove('open');
+      navLinks.classList.remove('open');
+      document.body.style.overflow = '';
+    });
+  });
 
   /* ---------- active nav link ----------
      Compared without the .html extension, because some static-file
@@ -84,10 +91,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ---------- nav dropdown (tap to open on touch/mobile) ---------- */
+  /* 1500px matches the CSS breakpoint that switches the whole nav into
+     the slide-out panel (see .nav-links / .nav-dropdown in style.css) —
+     keep these in sync, since below that width "Home" is a tap target,
+     not a hover trigger */
   document.querySelectorAll('.nav-item').forEach(item => {
     const trigger = item.querySelector(':scope > a');
     trigger && trigger.addEventListener('click', (e) => {
-      if(window.innerWidth <= 880){
+      if(window.innerWidth <= 1500){
         e.preventDefault();
         item.classList.toggle('dd-open');
       }
