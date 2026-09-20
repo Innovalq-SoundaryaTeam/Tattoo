@@ -1,0 +1,153 @@
+/* ==========================================================================
+   HOME 2 — Editorial / magazine-style variant (extends style.css)
+   ========================================================================== */
+
+.ghost-word{
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-54%);
+  font-family:var(--ff-display); font-size:clamp(6rem,22vw,15rem); letter-spacing:4px;
+  color:transparent; -webkit-text-stroke:1px rgba(255,255,255,.06); z-index:0; white-space:nowrap; pointer-events:none;
+  user-select:none;
+}
+
+/* ---------- split editorial hero ---------- */
+.split-hero{
+  min-height:100vh; display:grid; grid-template-columns:1fr 1fr;
+  padding-top:120px; position:relative; overflow:hidden; background:var(--ink-black);
+}
+.split-hero .side-left{ display:flex; flex-direction:column; justify-content:center; padding-block:40px 60px; padding-inline:24px 60px; position:relative; z-index:2; }
+/* kicker is a reusable chapter-label component (not just the hero's) —
+   used throughout home2 as the editorial "numbered section" device that
+   sets this layout apart from Home 1's plainer section headers */
+.kicker{ font-family:var(--ff-accent); letter-spacing:5px; text-transform:uppercase; color:var(--ink-grey-dim); font-size:.85rem; margin-bottom:22px; display:flex; align-items:center; gap:14px; }
+.kicker::before{ content:''; width:50px; height:1px; background:var(--ink-border); }
+.kicker.center{ justify-content:center; }
+/* the CTA card's background is a fixed dark color in every theme (see the
+   .glow-cta comment further down), so its kicker needs fixed light colors
+   instead of the theme-reactive ones above, or it goes invisible in light mode */
+.glow-cta .kicker{ color:#a8a6a2; justify-content:center; margin:0 auto 22px; }
+.glow-cta .kicker::before{ background:rgba(255,255,255,.18); }
+
+/* chapter numbers prefixed onto section eyebrows, continuing the same
+   numbered-sequence idea the hero starts with its "— 01" scroll tag */
+.eyebrow .chapter-num{ opacity:.6; margin-inline-end:2px; }
+.split-hero h1{
+  font-size:clamp(2.6rem,6vw,4.6rem); line-height:.98; margin-bottom:28px;
+}
+.split-hero h1 .stroke{ color:transparent; -webkit-text-stroke:1.5px var(--ink-white); }
+.split-hero p.lead{ font-size:1.05rem; color:var(--ink-grey); max-width:440px; margin-bottom:36px; }
+.split-hero .num-tag{
+  position:absolute; top:120px; inset-inline-end:40px; font-family:var(--ff-display); font-size:1rem; color:var(--ink-grey-dim);
+  writing-mode:vertical-rl; letter-spacing:3px; z-index:2;
+}
+
+.split-hero .side-right{ position:relative; }
+.collage{ position:relative; height:100%; min-height:640px; padding:40px 40px 40px 0; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:16px; }
+.collage-tile{
+  border-radius:var(--radius); overflow:hidden; position:relative; border:1px solid var(--ink-border);
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .5s var(--ease);
+}
+.collage-tile:hover{ transform:translateY(-6px); }
+.collage-tile.big{ grid-row:span 2; }
+.collage-tile svg{ width:42%; transition:transform .6s var(--ease); }
+.collage-tile:hover svg{ transform:scale(1.12) rotate(-4deg); }
+.collage-badge{
+  position:absolute; bottom:16px; left:16px; right:16px; padding:12px 16px; border-radius:12px;
+  background:rgba(10,10,12,.7); backdrop-filter:blur(10px); border:1px solid var(--ink-border);
+  display:flex; align-items:center; justify-content:space-between; font-size:.78rem; color:var(--ink-grey);
+}
+
+@media (max-width: 980px){
+  .split-hero{ grid-template-columns:1fr; }
+  .split-hero .side-left{ padding:20px 24px 40px; }
+  .collage{ min-height:420px; padding:0 24px 40px; }
+  .split-hero .num-tag{ display:none; }
+}
+
+/* ---------- horizontal scroll gallery ---------- */
+.hscroll-wrap{ position:relative; }
+.hscroll{
+  display:flex; gap:22px; overflow-x:auto; scroll-snap-type:x mandatory; padding:6px 6px 26px;
+  scrollbar-width:none;
+}
+.hscroll::-webkit-scrollbar{ display:none; }
+.hscroll-item{
+  scroll-snap-align:start; flex:0 0 auto; width:300px; aspect-ratio:3/4; border-radius:var(--radius);
+  border:1px solid var(--ink-border); position:relative; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+}
+.hscroll-item svg{ width:48%; transition:transform .6s var(--ease); }
+.hscroll-item:hover svg{ transform:scale(1.12); }
+.hscroll-item .cap{ position:absolute; left:0; right:0; bottom:0; padding:18px; background:linear-gradient(transparent, rgba(10,10,12,.9)); }
+.hscroll-item .cap b{ display:block; font-size:.95rem; }
+.hscroll-item .cap span{ font-size:.78rem; color:var(--ink-grey-dim); }
+.hscroll-nav{ display:flex; gap:10px; justify-content:flex-end; margin-top:-8px; }
+.hscroll-nav button{ width:42px; height:42px; border-radius:50%; border:1px solid var(--ink-border); transition:.3s; }
+.hscroll-nav button:hover{ border-color:var(--ink-red); background:rgba(232,40,63,.1); }
+
+/* ---------- pull quote / about split ---------- */
+.about-split{ display:grid; grid-template-columns:.9fr 1.1fr; gap:60px; align-items:center; }
+.about-split .quote-mark{ font-family:var(--ff-display); font-size:5rem; color:var(--ink-red-2); line-height:1; opacity:.5; }
+.about-split blockquote{ font-family:var(--ff-display); font-size:clamp(1.6rem,3vw,2.3rem); line-height:1.2; text-transform:uppercase; margin:10px 0 26px; }
+.about-split .attribution{ display:flex; align-items:center; gap:14px; }
+.about-split .attribution .av{ width:48px; height:48px; border-radius:50%; background:var(--grad-fire); display:flex; align-items:center; justify-content:center; font-weight:700; color:#150404; }
+.about-split .attribution b{ display:block; font-size:.95rem; }
+.about-split .attribution span{ font-size:.8rem; color:var(--ink-grey-dim); }
+.about-visual{
+  aspect-ratio:1/1; border-radius:var(--radius-lg); border:1px solid var(--ink-border); position:relative; overflow:hidden;
+  background:radial-gradient(circle at 30% 20%, #241017, #0a0a0c 70%); display:flex; align-items:center; justify-content:center;
+}
+.about-visual svg{ width:52%; color:var(--ink-red-2); filter:drop-shadow(0 0 30px rgba(232,40,63,.35)); }
+@media (max-width: 900px){ .about-split{ grid-template-columns:1fr; } .about-visual{ order:-1; max-width:340px; margin:0 auto; } }
+
+/* ---------- artist spotlight carousel ---------- */
+.spotlight{
+  display:grid; grid-template-columns:.8fr 1.2fr; gap:0; border-radius:var(--radius-lg); overflow:hidden;
+  border:1px solid var(--ink-border); background:var(--ink-surface);
+}
+.spotlight-visual{ position:relative; aspect-ratio:4/5; display:flex; align-items:center; justify-content:center; }
+.spotlight-visual svg{ width:48%; transition:opacity .5s, transform .5s; }
+.spotlight-body{ padding:50px; display:flex; flex-direction:column; justify-content:center; }
+.spotlight-body small{ color:var(--ink-red-2); letter-spacing:2px; text-transform:uppercase; font-size:.78rem; }
+.spotlight-body h3{ font-size:clamp(1.8rem,3vw,2.6rem); margin:10px 0 16px; }
+.spotlight-body p{ color:var(--ink-grey); max-width:460px; margin-bottom:22px; }
+.spotlight-dots{ display:flex; gap:10px; }
+.spotlight-dots button{ width:10px; height:10px; border-radius:50%; background:var(--ink-border); transition:.3s; }
+.spotlight-dots button.active{ background:var(--grad-fire); width:26px; border-radius:6px; }
+@media (max-width: 900px){ .spotlight{ grid-template-columns:1fr; } .spotlight-body{ padding:34px 26px; } }
+
+/* ---------- number ticker strip ---------- */
+.ticker-strip{ border-top:1px solid var(--ink-border); border-bottom:1px solid var(--ink-border); background:var(--ink-black-2); overflow:hidden; padding:36px 0; }
+.ticker-row{ display:flex; justify-content:space-around; flex-wrap:wrap; gap:30px; }
+.ticker-row .tk{ text-align:center; }
+.ticker-row .tk b{ display:block; font-family:var(--ff-display); font-size:2.6rem; background:var(--grad-fire); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.ticker-row .tk span{ font-size:.78rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--ink-grey-dim); }
+
+/* ---------- blog teaser cards ---------- */
+.blog-teaser-card{ overflow:hidden; padding:0; }
+.blog-teaser-card .thumb{ aspect-ratio:16/10; display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+.blog-teaser-card .thumb svg{ width:34%; }
+.blog-teaser-card .body{ padding:22px 24px 26px; }
+.blog-teaser-card .meta{ display:flex; gap:10px; align-items:center; font-size:.76rem; color:var(--ink-grey-dim); margin-bottom:10px; text-transform:uppercase; letter-spacing:1px; }
+.blog-teaser-card .meta .cat{ color:var(--ink-red-2); }
+.blog-teaser-card h3{ font-size:1.08rem; text-transform:none; letter-spacing:0; font-weight:700; }
+
+/* ---------- cursor-glow CTA ---------- */
+.glow-cta{
+  position:relative; border-radius:var(--radius-lg); overflow:hidden; padding:90px 60px; text-align:center;
+  background:#0d0d10; border:1px solid var(--ink-border); cursor:pointer;
+}
+.glow-cta::before{
+  content:''; position:absolute; width:480px; height:480px; border-radius:50%; pointer-events:none;
+  background:radial-gradient(circle, rgba(232,40,63,.35), transparent 70%);
+  left:var(--gx,50%); top:var(--gy,50%); transform:translate(-50%,-50%); transition:opacity .3s;
+  opacity:0;
+}
+.glow-cta:hover::before{ opacity:1; }
+.glow-cta h2{ font-size:clamp(2.2rem,5vw,3.6rem); position:relative; z-index:1; margin-bottom:26px; color:#f5f2ec; }
+.glow-cta .actions{ position:relative; z-index:1; display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+/* like .cta-band, this card's background is a fixed dark color in every
+   theme, so its text needs fixed light colors too instead of the theme
+   variables — otherwise light mode flips them dark and the copy vanishes */
+.glow-cta .btn-outline{ border-color:rgba(255,255,255,.28); color:#f5f2ec; }
+.glow-cta .btn-outline:hover{ border-color:var(--ink-red); background:rgba(232,40,63,.14); }

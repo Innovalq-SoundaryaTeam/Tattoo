@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Client Dashboard — InkBlood Studio</title>
+<meta name="description" content="Manage your tattoo and piercing appointments, upload design references, view aftercare instructions and track payment history.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><defs><linearGradient id=%22lg%22 x1=%220%25%22 y1=%220%25%22 x2=%22100%25%22 y2=%22100%25%22><stop offset=%220%25%22 stop-color=%22%23e8283f%22/><stop offset=%2250%25%22 stop-color=%22%23ff7a3d%22/><stop offset=%22100%25%22 stop-color=%22%23d4af37%22/></linearGradient></defs><circle cx=%2250%22 cy=%2250%22 r=%2248%22 fill=%22url(%23lg)%22/><polygon points=%2250,10 56,37 52,60 48,60 44,37%22 fill=%22%23150404%22/><path d=%22M28,63 Q40,55 46,60 L54,60 Q60,55 72,63 Q60,68 54,64 L46,64 Q40,68 28,63 Z%22 fill=%22%23150404%22/><rect x=%2247%22 y=%2264%22 width=%226%22 height=%2218%22 rx=%223%22 fill=%22%23150404%22/><circle cx=%2250%22 cy=%2285%22 r=%224.5%22 fill=%22%23150404%22/></svg>">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body class="">
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+<defs>
+  <linearGradient id="gradStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" stop-color="#e8283f"/>
+    <stop offset="50%" stop-color="#ff7a3d"/>
+    <stop offset="100%" stop-color="#d4af37"/>
+  </linearGradient>
+</defs>
+
+<symbol id="i-logo" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="48" fill="url(#gradStroke)"/>
+  <polygon points="50,10 56,37 52,60 48,60 44,37" fill="#150404"/>
+  <path d="M28,63 Q40,55 46,60 L54,60 Q60,55 72,63 Q60,68 54,64 L46,64 Q40,68 28,63 Z" fill="#150404"/>
+  <rect x="47" y="64" width="6" height="18" rx="3" fill="#150404"/>
+  <circle cx="50" cy="85" r="4.5" fill="#150404"/>
+</symbol>
+
+<symbol id="i-rose" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 4" opacity=".4"/>
+  <path d="M50 78 C50 60 50 55 50 40" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M50 78 L40 88 M50 78 L60 86" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M38 55 Q30 50 34 42 Q40 44 40 52 Z" stroke="currentColor" stroke-width="1.6" fill="none"/>
+  <path d="M62 55 Q70 50 66 42 Q60 44 60 52 Z" stroke="currentColor" stroke-width="1.6" fill="none"/>
+  <circle cx="50" cy="30" r="14" fill="none" stroke="currentColor" stroke-width="2"/>
+  <circle cx="50" cy="30" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/>
+  <path d="M40 22 Q50 14 60 22" stroke="currentColor" stroke-width="1.6" fill="none"/>
+  <path d="M38 34 Q50 44 62 34" stroke="currentColor" stroke-width="1.6" fill="none"/>
+  <path d="M36 28 Q28 24 30 16" stroke="currentColor" stroke-width="1.4" fill="none"/>
+  <path d="M64 28 Q72 24 70 16" stroke="currentColor" stroke-width="1.4" fill="none"/>
+</symbol>
+
+<symbol id="i-dagger" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 4" opacity=".4"/>
+  <path d="M50 12 L50 62" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M32 30 L68 30" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M40 30 L40 40 L50 46 L60 40 L60 30" stroke="currentColor" stroke-width="1.8" fill="none"/>
+  <path d="M44 46 L44 78 L50 88 L56 78 L56 46" stroke="currentColor" stroke-width="1.8" fill="none"/>
+  <path d="M44 56 L56 56 M44 66 L56 66" stroke="currentColor" stroke-width="1.2"/>
+</symbol>
+
+<symbol id="i-snake" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 4" opacity=".4"/>
+  <path d="M28 78 Q20 60 34 52 Q50 44 40 32 Q32 22 44 16 Q56 12 60 22" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="62" cy="20" r="6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M66 17 L72 14 M67 22 L74 22" stroke="currentColor" stroke-width="1.4"/>
+  <path d="M34 46 L44 42 M40 58 L50 56 M32 68 L42 68" stroke="currentColor" stroke-width="1.2"/>
+</symbol>
+
+<symbol id="i-skull" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 4" opacity=".4"/>
+  <path d="M50 18 C32 18 24 32 26 46 C27 54 32 58 34 64 L34 74 L66 74 L66 64 C68 58 73 54 74 46 C76 32 68 18 50 18 Z" stroke="currentColor" stroke-width="2" fill="none"/>
+  <circle cx="40" cy="46" r="6" stroke="currentColor" stroke-width="1.8" fill="none"/>
+  <circle cx="60" cy="46" r="6" stroke="currentColor" stroke-width="1.8" fill="none"/>
+  <path d="M50 52 L46 62 L54 62 Z" stroke="currentColor" stroke-width="1.6" fill="none"/>
+  <path d="M38 74 L38 82 M46 74 L46 84 M54 74 L54 84 M62 74 L62 82" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+</symbol>
+
+<symbol id="i-swallow" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 4" opacity=".4"/>
+  <path d="M50 46 C40 38 20 34 12 40 C22 42 28 48 32 54 C22 54 14 60 10 68 C22 66 30 62 38 56 C42 62 46 70 46 78" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <path d="M50 46 C60 38 80 34 88 40 C78 42 72 48 68 54 C78 54 86 60 90 68 C78 66 70 62 62 56 C58 62 54 70 54 78" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+  <circle cx="50" cy="44" r="4" fill="currentColor"/>
+</symbol>
+
+<symbol id="i-anchor" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 4" opacity=".4"/>
+  <circle cx="50" cy="24" r="7" stroke="currentColor" stroke-width="2" fill="none"/>
+  <path d="M50 31 L50 78" stroke="currentColor" stroke-width="2.2"/>
+  <path d="M34 40 L66 40" stroke="currentColor" stroke-width="2"/>
+  <path d="M28 54 Q30 74 50 80 Q70 74 72 54" stroke="currentColor" stroke-width="2" fill="none"/>
+  <path d="M28 54 L36 54 M72 54 L64 54" stroke="currentColor" stroke-width="1.6"/>
+</symbol>
+
+<symbol id="i-eye" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 4" opacity=".4"/>
+  <path d="M16 50 Q50 24 84 50 Q50 76 16 50 Z" stroke="currentColor" stroke-width="2" fill="none"/>
+  <circle cx="50" cy="50" r="13" stroke="currentColor" stroke-width="2" fill="none"/>
+  <circle cx="50" cy="50" r="5" fill="currentColor"/>
+  <path d="M28 34 L20 26 M72 34 L80 26 M50 22 L50 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+</symbol>
+
+<symbol id="i-lightning" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 4" opacity=".4"/>
+  <path d="M56 14 L30 54 L46 54 L40 88 L72 42 L54 42 Z" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linejoin="round"/>
+</symbol>
+
+<symbol id="i-lotus" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 4" opacity=".4"/>
+  <path d="M50 78 C50 60 50 60 50 46" stroke="currentColor" stroke-width="2" fill="none"/>
+  <path d="M50 78 C30 78 24 60 30 48 C38 56 44 62 50 46 C56 62 62 56 70 48 C76 60 70 78 50 78 Z" stroke="currentColor" stroke-width="1.8" fill="none"/>
+  <path d="M50 46 C46 34 46 24 50 16 C54 24 54 34 50 46 Z" stroke="currentColor" stroke-width="1.6" fill="none"/>
+  <path d="M50 46 C42 38 34 34 26 34 C32 42 40 46 50 46 Z" stroke="currentColor" stroke-width="1.4" fill="none"/>
+  <path d="M50 46 C58 38 66 34 74 34 C68 42 60 46 50 46 Z" stroke="currentColor" stroke-width="1.4" fill="none"/>
+</symbol>
+
+<symbol id="i-wave" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="2 4" opacity=".4"/>
+  <path d="M14 60 Q26 44 38 60 Q50 76 62 60 Q74 44 86 60" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M14 44 Q26 28 38 44 Q50 60 62 44 Q74 28 86 44" stroke="currentColor" stroke-width="1.4" fill="none" opacity=".6"/>
+  <path d="M30 70 Q26 76 30 82 M50 70 Q46 78 52 84 M70 70 Q66 76 70 82" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+</symbol>
+
+<!-- flat UI icons (dashboard / nav) -->
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="14" y="3" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="3" y="14" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="14" y="14" width="7" height="7" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+<symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 9h18M7 3v4M17 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a2 2 0 002 2h12a2 2 0 002-2v-3" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-clip" viewBox="0 0 24 24"><path d="M9 3h6a1 1 0 011 1v2H8V4a1 1 0 011-1z" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="5" y="6" width="14" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M9 12h6M9 16h6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+<symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7-4.4-9.5-9C1 7.5 3 4 6.5 4c2 0 3.3 1 4.5 2.4C12.2 5 13.5 4 15.5 4 19 4 21 7.5 19.5 11 17 15.6 12 20 12 20z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+<symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M2 10h20" stroke="currentColor" stroke-width="1.8"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round"/></symbol>
+<symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8a6 6 0 10-12 0c0 7-3 9-3 9h18s-3-2-3-9" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.7 21a2 2 0 01-3.4 0" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><path d="M4 12l6 6L20 6" stroke="currentColor" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2m3 0-1 14a2 2 0 01-2 2H7a2 2 0 01-2-2L4 6" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v12M7 11l5 5 5-5M4 20h16" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/></symbol>
+<symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z" stroke="currentColor" stroke-width="1.8" fill="none"/><circle cx="12" cy="9" r="2.4" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M6 3h3l2 5-2.5 1.5a12 12 0 006 6L16 13l5 2v3a2 2 0 01-2 2C10.5 20 4 13.5 4 5a2 2 0 012-2z" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linejoin="round"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3 7l9 6 9-6" stroke="currentColor" stroke-width="1.8" fill="none"/></symbol>
+</svg>
+
+
+<div class="dash-shell">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside class="dash-sidebar" id="dash-sidebar">
+    <a href="index.html" class="logo"><svg class="mark" viewBox="0 0 100 100"><use href="#i-logo"/></svg>Ink<span>Blood</span></a>
+    <nav class="dash-nav">
+      <a href="#overview" class="active" data-view="overview"><svg viewBox="0 0 24 24" class="ic" style="width:20px"><use href="#i-grid"/></svg> Overview</a>
+      <a href="#book" data-view="book"><svg viewBox="0 0 24 24" class="ic" style="width:20px"><use href="#i-cal"/></svg> Book Consultation</a>
+      <a href="#appointments" data-view="appointments"><svg viewBox="0 0 24 24" class="ic" style="width:20px"><use href="#i-clip"/></svg> My Appointments</a>
+      <a href="#references" data-view="references"><svg viewBox="0 0 24 24" class="ic" style="width:20px"><use href="#i-upload"/></svg> Design References</a>
+      <a href="#aftercare" data-view="aftercare"><svg viewBox="0 0 24 24" class="ic" style="width:20px"><use href="#i-heart"/></svg> Aftercare Guide</a>
+      <a href="#payments" data-view="payments"><svg viewBox="0 0 24 24" class="ic" style="width:20px"><use href="#i-card"/></svg> Payment History</a>
+      <div class="divider"></div>
+      <a href="#profile" data-view="profile"><svg viewBox="0 0 24 24" class="ic" style="width:20px"><use href="#i-user"/></svg> Profile &amp; Settings</a>
+    </nav>
+    <div class="dash-user">
+      <div id="user-avatar" style="width:42px;height:42px;border-radius:50%;background:var(--grad-fire);display:flex;align-items:center;justify-content:center;font-weight:700;color:#150404;">GC</div>
+      <div>
+        <b id="user-name">Guest Client</b>
+        <span id="user-email">guest@inkblood.studio</span>
+      </div>
+      <a href="login.html" class="logout" title="Log out" id="logout-btn"><svg viewBox="0 0 24 24" style="width:20px"><use href="#i-logout"/></svg></a>
+    </div>
+  </aside>
+
+  <!-- ================= MAIN ================= -->
+  <main class="dash-main">
+    <div class="dash-topbar">
+      <div class="flex items-center gap-2">
+        <button class="mobile-dash-toggle" id="mobile-toggle">☰</button>
+        <div>
+          <h1 id="topbar-title">Welcome back</h1>
+          <p id="topbar-sub">Here's what's happening with your ink journey.</p>
+        </div>
+      </div>
+      <a href="services.html#book" class="btn btn-primary btn-sm">+ New Booking</a>
+    </div>
+
+    <!-- ---------- OVERVIEW ---------- -->
+    <section class="dash-view active" id="view-overview">
+      <div class="stat-tiles">
+        <div class="stat-tile"><div class="top"><div class="ic"><svg viewBox="0 0 24 24" style="width:20px;color:#150404"><use href="#i-cal"/></svg></div><span class="trend" id="stat-upcoming-trend"></span></div><b id="stat-upcoming">0</b><span>Upcoming Appointments</span></div>
+        <div class="stat-tile"><div class="top"><div class="ic"><svg viewBox="0 0 24 24" style="width:20px;color:#150404"><use href="#i-clip"/></svg></div></div><b id="stat-completed">0</b><span>Sessions Completed</span></div>
+        <div class="stat-tile"><div class="top"><div class="ic"><svg viewBox="0 0 24 24" style="width:20px;color:#150404"><use href="#i-upload"/></svg></div></div><b id="stat-refs">0</b><span>Design References</span></div>
+        <div class="stat-tile"><div class="top"><div class="ic"><svg viewBox="0 0 24 24" style="width:20px;color:#150404"><use href="#i-card"/></svg></div></div><b id="stat-spent">$0</b><span>Total Spent</span></div>
+      </div>
+
+      <div class="dash-grid-2">
+        <div>
+          <div class="dash-panel">
+            <div class="panel-head"><h2>Upcoming Appointments</h2><a href="#appointments" class="link" data-goto="appointments">View all</a></div>
+            <div id="overview-appt-list"></div>
+          </div>
+          <div class="dash-panel">
+            <div class="panel-head"><h2>Recent Design References</h2><a href="#references" class="link" data-goto="references">Manage</a></div>
+            <div class="ref-grid" id="overview-ref-grid"></div>
+          </div>
+        </div>
+        <div>
+          <div class="dash-panel">
+            <div class="panel-head"><h2>Healing Progress</h2></div>
+            <div class="progress-ring-wrap">
+              <div class="progress-ring">
+                <svg width="96" height="96"><circle class="bg" cx="48" cy="48" r="40"/><circle class="fg" id="progress-circle" cx="48" cy="48" r="40" stroke-dasharray="251" stroke-dashoffset="180"/></svg>
+                <div class="val" id="progress-val">28%</div>
+              </div>
+              <div>
+                <b style="display:block;margin-bottom:4px;">Fine Line Forearm</b>
+                <span style="color:var(--ink-grey-dim);font-size:.85rem;">Day 8 of 28 — full healing expected soon.</span>
+                <div class="mt-2"><a href="#aftercare" class="btn btn-outline btn-sm" data-goto="aftercare">View Aftercare Steps</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="dash-panel">
+            <div class="panel-head"><h2>This Month</h2></div>
+            <div class="mini-cal" id="mini-cal"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- BOOK CONSULTATION ---------- -->
+    <section class="dash-view" id="view-book">
+      <div class="dash-panel" style="max-width:760px;">
+        <div class="panel-head"><h2>Book a Consultation or Session</h2></div>
+        <div class="tab-row" id="book-tabs">
+          <button class="tab-btn active" data-tab="tattoo">Tattoo</button>
+          <button class="tab-btn" data-tab="piercing">Piercing</button>
+          <button class="tab-btn" data-tab="coverup">Cover-Up</button>
+        </div>
+        <form id="booking-form">
+          <div class="form-row">
+            <div class="form-field">
+              <label>Preferred Artist</label>
+              <select id="bk-artist">
+                <option>No preference</option>
+                <option>Marisol Reyes — Realism</option>
+                <option>Dae-Ho Kim — Blackwork</option>
+                <option>Wren Halloway — Traditional</option>
+                <option>Priya Nandan — Fine Line</option>
+                <option>Sasha Okafor — Piercing</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>Date</label>
+              <input type="date" id="bk-date" required>
+              <span class="form-error">Choose a date</span>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Available Time Slots</label>
+            <div class="avail-slots" id="avail-slots">
+              <button type="button" class="avail-slot">11:00 AM</button>
+              <button type="button" class="avail-slot">1:00 PM</button>
+              <button type="button" class="avail-slot taken">2:30 PM</button>
+              <button type="button" class="avail-slot">4:00 PM</button>
+              <button type="button" class="avail-slot">5:30 PM</button>
+              <button type="button" class="avail-slot taken">7:00 PM</button>
+              <button type="button" class="avail-slot">8:00 PM</button>
+              <button type="button" class="avail-slot">8:30 PM</button>
+            </div>
+          </div>
+          <div class="form-field">
+            <label>Placement &amp; Size</label>
+            <input type="text" id="bk-placement" placeholder="e.g. Forearm, 4 inches">
+          </div>
+          <div class="form-field">
+            <label>Notes for your artist</label>
+            <textarea id="bk-notes" placeholder="Describe your idea, style references, budget..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Confirm Booking</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ---------- MY APPOINTMENTS ---------- -->
+    <section class="dash-view" id="view-appointments">
+      <div class="dash-panel">
+        <div class="panel-head">
+          <h2>My Appointments</h2>
+          <div class="filter-row" style="margin:0;" data-filter-group=".appt-row">
+            <button class="pill active" data-filter="all">All</button>
+            <button class="pill" data-filter="confirmed">Confirmed</button>
+            <button class="pill" data-filter="pending">Pending</button>
+            <button class="pill" data-filter="completed">Completed</button>
+          </div>
+        </div>
+        <div id="full-appt-list"></div>
+      </div>
+    </section>
+
+    <!-- ---------- REFERENCES ---------- -->
+    <section class="dash-view" id="view-references">
+      <div class="dash-panel">
+        <div class="panel-head"><h2>Upload Design References</h2></div>
+        <div class="upload-drop" id="upload-drop">
+          <div class="ic">
+            <svg viewBox="0 0 24 24" style="width:32px;color:var(--ink-red-2);margin:0 auto;"><use href="#i-upload"/></svg>
+          </div>
+          <b>Click to upload or drag &amp; drop</b>
+          <small>PNG, JPG up to 10MB — inspiration photos, sketches or placement references</small>
+          <input type="file" id="file-input" accept="image/*" multiple style="display:none;">
+        </div>
+        <div class="ref-grid mt-3" id="full-ref-grid"></div>
+      </div>
+    </section>
+
+    <!-- ---------- AFTERCARE ---------- -->
+    <section class="dash-view" id="view-aftercare">
+      <div class="dash-panel">
+        <div class="panel-head"><h2>Your Aftercare Instructions</h2><a href="aftercare.html" class="link">Full guide ↗</a></div>
+        <div class="heal-timeline">
+          <div class="heal-step"><span class="day">Day 1 – 3</span><h4>Keep it clean &amp; covered</h4><p>Wash gently twice daily with fragrance-free soap, pat dry, apply a thin layer of aftercare balm.</p></div>
+          <div class="heal-step"><span class="day">Day 4 – 6</span><h4>Peeling begins</h4><p>Let flaking skin shed naturally — never pick. Keep moisturizing 2–3x daily.</p></div>
+          <div class="heal-step"><span class="day">Day 7 – 14</span><h4>Itching &amp; dullness</h4><p>Avoid pools, saunas and direct sun. Pat, don't scratch, if itchy.</p></div>
+          <div class="heal-step"><span class="day">Week 3 – 4</span><h4>Full surface healing</h4><p>Colors look vibrant. Keep using SPF 30+ on the area long-term.</p></div>
+        </div>
+        <button class="btn btn-outline btn-sm mt-2" id="download-aftercare"><svg viewBox="0 0 24 24" style="width:16px;vertical-align:-3px;margin-right:6px;"><use href="#i-download"/></svg>Download PDF Copy</button>
+      </div>
+    </section>
+
+    <!-- ---------- PAYMENTS ---------- -->
+    <section class="dash-view" id="view-payments">
+      <div class="stat-tiles" style="grid-template-columns:repeat(3,1fr);">
+        <div class="stat-tile"><b id="pay-total">$0</b><span>Total Paid</span></div>
+        <div class="stat-tile"><b id="pay-due">$0</b><span>Balance Due</span></div>
+        <div class="stat-tile"><b id="pay-count">0</b><span>Transactions</span></div>
+      </div>
+      <div class="dash-panel">
+        <div class="panel-head"><h2>Payment History</h2></div>
+        <div style="overflow-x:auto;">
+          <table class="pay-table">
+            <thead><tr><th>Date</th><th>Service</th><th>Artist</th><th>Amount</th><th>Status</th></tr></thead>
+            <tbody id="pay-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- PROFILE ---------- -->
+    <section class="dash-view" id="view-profile">
+      <div class="dash-panel" style="max-width:560px;">
+        <div class="panel-head"><h2>Profile &amp; Settings</h2></div>
+        <form id="profile-form">
+          <div class="form-field"><label>Full Name</label><input type="text" id="pf-name"></div>
+          <div class="form-field"><label>Email</label><input type="email" id="pf-email"></div>
+          <div class="form-field"><label>Phone</label><input type="tel" placeholder="(555) 000-0000"></div>
+          <label class="checkbox-row mb-3"><input type="checkbox" checked> Email me appointment reminders</label>
+          <label class="checkbox-row mb-3"><input type="checkbox" checked> Email me aftercare check-ins</label>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <button type="button" class="btn btn-outline" id="profile-logout" style="margin-left:10px;">Log Out</button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+
+
+<script src="js/main.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>
