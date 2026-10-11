@@ -206,9 +206,19 @@ h1,h2,h3,h4{ font-family:var(--ff-display); font-weight:400; letter-spacing:.5px
 .nav-dropdown a::after{ display:none; }
 @media (max-width: 1320px){
   .nav-dropdown{ position:static; transform:none; opacity:1; visibility:visible; box-shadow:none; border:none; background:none; padding:0; margin-top:14px; display:none; min-width:0; }
-  .nav-item.dd-open .nav-dropdown{ display:flex; flex-direction:column; gap:6px; }
+  /* .nav-item.dd-open .nav-dropdown (outside this query, near the desktop
+     dropdown rules above) sets transform:translateX(-50%) to center the
+     floating desktop panel under its trigger — same specificity as the two
+     rules below, so without repeating transform:none here it still wins on
+     mobile too (later in source order loses that tie only when the
+     property is actually re-declared). Left unfixed, the panel — now a
+     plain static-flow block, not the absolutely-positioned floating menu
+     that transform was written for — gets shifted left by half its own
+     width and runs off the left edge of a narrow (e.g. 360px) screen,
+     causing horizontal page overflow. */
+  .nav-item.dd-open .nav-dropdown{ display:flex; flex-direction:column; gap:6px; transform:none; }
   .nav-item:hover .nav-dropdown{ display:none; }
-  .nav-item.dd-open:hover .nav-dropdown{ display:flex; }
+  .nav-item.dd-open:hover .nav-dropdown{ display:flex; transform:none; }
 }
 
 .nav-actions{ display:flex; align-items:center; gap:10px; }
@@ -369,12 +379,20 @@ h1,h2,h3,h4{ font-family:var(--ff-display); font-weight:400; letter-spacing:.5px
 .card p{ color:var(--ink-grey); font-size:.95rem; }
 
 /* service card */
-.service-card{ overflow:hidden; padding:0; }
+.service-card{ overflow:hidden; padding:0; display:flex; flex-direction:column; }
 .service-card .thumb{ aspect-ratio:16/11; overflow:hidden; position:relative; }
 .service-card .thumb img{ width:100%; height:100%; object-fit:cover; transition:transform .6s var(--ease); }
 .service-card:hover .thumb img{ transform:scale(1.08); }
-.service-card .body{ padding:26px 26px 30px; }
-.service-card .price{ font-family:var(--ff-accent); color:var(--ink-red-2); font-size:1.1rem; letter-spacing:1px; }
+/* .body is a flex column with the price pinned to the bottom (margin-top:
+   auto) instead of sitting right under the description: the grid (grid-3)
+   already stretches every card in a row to equal height, but the
+   description copy is a different length on nearly every card ("Delicate
+   single-needle linework..." vs "Multi-session custom projects with a
+   dedicated design roadmap and fixed day-rate."), so without this the
+   $-amount lands at a different height per card and the row of prices
+   reads as unaligned — same fix as .testi-card .who above. */
+.service-card .body{ padding:26px 26px 30px; display:flex; flex-direction:column; flex:1; }
+.service-card .price{ font-family:var(--ff-accent); color:var(--ink-red-2); font-size:1.1rem; letter-spacing:1px; margin-top:auto; padding-top:14px; }
 .tag-row{ display:flex; gap:8px; flex-wrap:wrap; margin:14px 0 4px; }
 .tag{ font-size:.72rem; letter-spacing:1px; text-transform:uppercase; padding:5px 12px; border-radius:100px; border:1px solid var(--ink-border); color:var(--ink-grey); }
 
@@ -446,9 +464,16 @@ h1,h2,h3,h4{ font-family:var(--ff-display); font-weight:400; letter-spacing:.5px
 /* testimonials */
 .testi-track-wrap{ overflow:hidden; }
 .testi-track{ display:flex; gap:26px; transition:transform .6s var(--ease); }
-.testi-card{ min-width:calc(33.333% - 18px); }
+/* each card is a flex column with the reviewer row pinned to the bottom
+   (margin-top:auto) instead of sitting right under the quote: the review
+   quotes are different lengths, so without this the avatar+name row lands
+   at a different height in every card and the row reads as misaligned
+   when the cards sit side by side (the .testi-track flex row already
+   stretches every .testi-card to the same height, so this just uses
+   that spare height instead of leaving it below the row). */
+.testi-card{ min-width:calc(33.333% - 18px); display:flex; flex-direction:column; }
 .testi-card .stars{ color:var(--ink-gold); letter-spacing:3px; margin-bottom:16px; }
-.testi-card .who{ display:flex; align-items:center; gap:12px; margin-top:20px; }
+.testi-card .who{ display:flex; align-items:center; gap:12px; margin-top:auto; padding-top:20px; }
 .testi-card .who img{ width:44px; height:44px; border-radius:50%; object-fit:cover; }
 .testi-card .who b{ display:block; font-size:.92rem; }
 .testi-card .who span{ font-size:.78rem; color:var(--ink-grey-dim); }
@@ -500,6 +525,13 @@ h1,h2,h3,h4{ font-family:var(--ff-display); font-weight:400; letter-spacing:.5px
 
 /* accordion (aftercare FAQ) */
 .accordion-item{ border-bottom:1px solid var(--ink-border); }
+/* the border-bottom is meant to separate one FAQ row from the next, but
+   applied to every item it also leaves a trailing line under the very
+   last row — with nothing below it to separate from, that line just
+   dangles alone in the empty padding before the next section (visible
+   on pricing.html, right above the CTA band / footer), reading as a
+   stray extra bar rather than a divider. */
+.accordion-item:last-child{ border-bottom:none; }
 .accordion-item button{
   width:100%; display:flex; justify-content:space-between; align-items:center;
   padding:24px 4px; text-align:start; font-family:var(--ff-accent); font-size:1.15rem; letter-spacing:1px; text-transform:uppercase;
@@ -571,8 +603,16 @@ h1,h2,h3,h4{ font-family:var(--ff-display); font-weight:400; letter-spacing:.5px
 .footer-grid a:hover{ color:var(--ink-red-2); }
 .footer-about p{ color:var(--ink-grey); font-size:.92rem; margin:18px 0 22px; max-width:320px; }
 .footer-socials{ display:flex; gap:12px; }
-.footer-socials a{ width:38px; height:38px; border:1px solid var(--ink-border); border-radius:50%; display:flex; align-items:center; justify-content:center; transition:.3s; }
-.footer-socials a:hover{ background:var(--grad-fire); border-color:transparent; }
+/* icon glyphs need their own color: without this they inherit
+   .footer-grid a's color:var(--ink-grey) (the same muted tone used for
+   plain footer link text), which reads as low-contrast/washed-out for a
+   glyph sitting alone in a circle rather than inline in a sentence.
+   var(--ink-white) keeps full theme contrast while making the icons the
+   brightest thing in the footer, as a social row should be; the border
+   gets a stronger, theme-reactive color too so the circle itself reads
+   clearly instead of nearly disappearing into the footer background. */
+.footer-socials a{ width:38px; height:38px; border:1.5px solid var(--ink-grey-dim); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--ink-white); font-size:1rem; transition:.3s; }
+.footer-socials a:hover{ background:var(--grad-fire); border-color:transparent; color:#150404; }
 .footer-bottom{ display:flex; justify-content:space-between; align-items:center; padding-top:26px; border-top:1px solid var(--ink-border); flex-wrap:wrap; gap:14px; font-size:.82rem; color:var(--ink-grey-dim); }
 .footer-bottom a{ color:var(--ink-grey-dim); }
 .footer-bottom a:hover{ color:var(--ink-white); }
