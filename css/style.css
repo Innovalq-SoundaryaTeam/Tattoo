@@ -385,12 +385,12 @@ h1,h2,h3,h4{ font-family:var(--ff-display); font-weight:400; letter-spacing:.5px
    process at a glance (calendar = booking, pencil = design, machine = the
    session itself, shield = aftercare) without needing the body copy */
 .process .step-icon{
-  width:60px; height:60px; border-radius:16px; position:relative; overflow:hidden;
+  width:120px; height:120px; border-radius:20px; position:relative; overflow:hidden;
   background:rgba(232,40,63,.1); border:1.5px solid rgba(232,40,63,.4);
-  display:flex; align-items:center; justify-content:center; margin-bottom:18px;
+  display:flex; align-items:center; justify-content:center; margin-bottom:22px;
   color:var(--ink-red-2);
 }
-.process .step-icon svg{ width:28px; height:28px; display:block; }
+.process .step-icon svg{ width:52px; height:52px; display:block; }
 .process .step h4{ font-family:var(--ff-body); font-weight:700; text-transform:none; font-size:1.05rem; margin-bottom:10px; }
 .process .step p{ color:var(--ink-grey); font-size:.9rem; }
 .process .arrow{ display:none; }
