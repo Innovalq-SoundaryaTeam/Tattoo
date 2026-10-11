@@ -380,17 +380,22 @@ h1,h2,h3,h4{ font-family:var(--ff-display); font-weight:400; letter-spacing:.5px
 
 /* process timeline */
 .process{ display:grid; grid-template-columns:repeat(4,1fr); gap:24px; }
-.process .step{ position:relative; padding:34px 24px; border:1px solid var(--ink-border); border-radius:var(--radius); background:var(--ink-surface); }
-/* a step icon rather than a "01/02/03/04" number — lets a visitor read the
+/* same "top image, padded body below" shape as .service-card .thumb/.body —
+   the step image now fills the full card width instead of sitting as a
+   small badge inside the padding */
+.process .step{ position:relative; overflow:hidden; padding:0; border:1px solid var(--ink-border); border-radius:var(--radius); background:var(--ink-surface); }
+/* a step image rather than a "01/02/03/04" number — lets a visitor read the
    process at a glance (calendar = booking, pencil = design, machine = the
-   session itself, shield = aftercare) without needing the body copy */
-.process .step-icon{
-  width:120px; height:120px; border-radius:20px; position:relative; overflow:hidden;
-  background:rgba(232,40,63,.1); border:1.5px solid rgba(232,40,63,.4);
-  display:flex; align-items:center; justify-content:center; margin-bottom:22px;
+   session itself, shield = aftercare) without needing the body copy, and
+   falls back to that icon, centered, if no real photo has been uploaded yet */
+.process .step-thumb{
+  aspect-ratio:16/11; overflow:hidden; position:relative;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(232,40,63,.1); border-bottom:1.5px solid rgba(232,40,63,.4);
   color:var(--ink-red-2);
 }
-.process .step-icon svg{ width:52px; height:52px; display:block; }
+.process .step-thumb svg{ width:44px; height:44px; display:block; }
+.process .step-body{ padding:24px 24px 28px; }
 .process .step h4{ font-family:var(--ff-body); font-weight:700; text-transform:none; font-size:1.05rem; margin-bottom:10px; }
 .process .step p{ color:var(--ink-grey); font-size:.9rem; }
 .process .arrow{ display:none; }
