@@ -91,14 +91,14 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ---------- nav dropdown (tap to open on touch/mobile) ---------- */
-  /* 1800px matches the CSS breakpoint that switches the whole nav into
+  /* 1320px matches the CSS breakpoint that switches the whole nav into
      the slide-out panel (see .nav-links / .nav-dropdown in style.css) —
      keep these in sync, since below that width "Home" is a tap target,
      not a hover trigger */
   document.querySelectorAll('.nav-item').forEach(item => {
     const trigger = item.querySelector(':scope > a');
     trigger && trigger.addEventListener('click', (e) => {
-      if(window.innerWidth <= 1800){
+      if(window.innerWidth <= 1320){
         e.preventDefault();
         item.classList.toggle('dd-open');
       }
