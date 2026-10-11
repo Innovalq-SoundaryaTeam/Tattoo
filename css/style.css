@@ -395,6 +395,14 @@ h1,h2,h3,h4{ font-family:var(--ff-display); font-weight:400; letter-spacing:.5px
   color:var(--ink-red-2);
 }
 .process .step-thumb svg{ width:44px; height:44px; display:block; }
+/* override the global .ph-img object-fit:cover (line ~525): a cropped
+   close-up looks fine on a generic card photo, but these 4 process shots
+   are specific, literal illustrations of each step, so cropping them can
+   cut off the actual subject. object-fit:contain shows the whole photo,
+   letterboxed on the same tinted red background used for the icon
+   fallback above, so empty space on the sides/top reads as branded
+   padding rather than a layout bug. */
+.process .step-thumb img.ph-img{ object-fit:contain; padding:10px; }
 .process .step-body{ padding:24px 24px 28px; }
 .process .step h4{ font-family:var(--ff-body); font-weight:700; text-transform:none; font-size:1.05rem; margin-bottom:10px; }
 .process .step p{ color:var(--ink-grey); font-size:.9rem; }
