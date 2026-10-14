@@ -595,7 +595,15 @@ h1,h2,h3,h4{ font-family:var(--ff-display); font-weight:400; letter-spacing:.5px
 /* ==========================================================================
    FOOTER
    ========================================================================== */
-.site-footer{ background:var(--ink-black-2); border-top:1px solid var(--ink-border); padding:80px 0 30px; margin-top:60px; }
+/* no margin-top here on purpose: every section already ends with its own
+   70px of bottom padding (.section-tight), so an extra 60px margin on top
+   of that stacked up to a 130px dead gap before the footer — most visible
+   on a page like contact.html, where the section right above the footer
+   has its own var(--ink-black-2) background (same color as the footer),
+   so that stacked gap showed up as a plain black strip of empty space
+   wedged between two same-colored bands instead of reading as one
+   continuous surface. */
+.site-footer{ background:var(--ink-black-2); border-top:1px solid var(--ink-border); padding:80px 0 30px; }
 .footer-grid{ display:grid; grid-template-columns:1.6fr 1fr 1fr 1.2fr; gap:40px; margin-bottom:60px; }
 .footer-grid h4{ font-family:var(--ff-body); font-weight:700; text-transform:none; font-size:1rem; margin-bottom:20px; letter-spacing:0; }
 .footer-grid li{ margin-bottom:12px; }
